@@ -1,0 +1,26 @@
+[
+  {
+    "resume": "Name: John Doe | Education: BSc in Computer Science | Skills: Python, Java, SQL, Git | Experience: 2 years Junior Software Engineer | Projects: REST API with Flask and PostgreSQL",
+    "decision": {
+      "decision": "SHORTLIST",
+      "score": 78,
+      "reason": "Candidate has relevant programming skills and hands-on project experience."
+    }
+  },
+  {
+    "resume": "Name: John Doe | Education: BSc in Computer Science | Skills: Python, Java, SQL, Git | Experience: 2 years Junior Software Engineer | Projects: REST API with Flask and PostgreSQL",
+    "decision": {
+      "decision": "SHORTLIST",
+      "score": 78,
+      "reason": "Candidate has relevant programming skills and hands-on project experience."
+    }
+  },
+  {
+    "resume": "Name: John Doe | Education: BSc in Computer Science | Skills: Python, Java, SQL, Git | Experience: 2 years Junior Software Engineer | Projects: REST API with Flask and PostgreSQL",
+    "decision": {
+      "decision": "SHORTLIST",
+      "score": 78,
+      "reason": "Candidate has relevant programming skills and hands-on project experience."
+    }
+  }
+]
