@@ -1,0 +1,201 @@
+{
+  "info": {
+    "name": "HR System - Recruitment Workflow",
+    "description": "API collection for recruitment and hiring workflows including resume screening, candidate ranking, and interview scheduling",
+    "version": "1.0.0",
+    "contact": {
+      "name": "HR Systems Team"
+    }
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Job Management",
+      "item": [
+        {
+          "name": "Create Job Posting",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Senior Backend Engineer\",\n  \"description\": \"Looking for experienced backend engineer with 5+ years of experience\",\n  \"required_skills\": [\"Python\", \"AWS\", \"Docker\"],\n  \"nice_to_have_skills\": [\"Kubernetes\", \"gRPC\"],\n  \"years_experience_required\": 5,\n  \"salary_min\": 120000,\n  \"salary_max\": 160000,\n  \"department\": \"Engineering\",\n  \"location\": \"San Francisco, CA\",\n  \"remote_work_allowed\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/recruitment/jobs",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "jobs"]
+            }
+          }
+        },
+        {
+          "name": "Get Job Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/recruitment/jobs/JOB-2025-001",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "jobs", "JOB-2025-001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resume Processing",
+      "item": [
+        {
+          "name": "Upload Resume",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "path/to/resume.pdf"
+                },
+                {
+                  "key": "job_id",
+                  "value": "JOB-2025-001",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/recruitment/resumes/upload",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "resumes", "upload"]
+            }
+          }
+        },
+        {
+          "name": "Score Candidate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resume_id\": \"RES-2025-001\",\n  \"job_id\": \"JOB-2025-001\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/recruitment/candidates/score",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "candidates", "score"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Candidate Ranking",
+      "item": [
+        {
+          "name": "Get Ranked Candidates",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/recruitment/candidates/ranked?job_id=JOB-2025-001&limit=10&tier=TIER_1",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "candidates", "ranked"],
+              "query": [
+                {
+                  "key": "job_id",
+                  "value": "JOB-2025-001"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "tier",
+                  "value": "TIER_1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interview Scheduling",
+      "item": [
+        {
+          "name": "Schedule Interview",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"candidate_id\": \"CAN-2025-001\",\n  \"job_id\": \"JOB-2025-001\",\n  \"interview_date\": \"2025-01-20T14:00:00Z\",\n  \"interviewer_id\": \"EMP-1001\",\n  \"interview_type\": \"technical\",\n  \"duration_minutes\": 60\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/recruitment/interviews/schedule",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "interviews", "schedule"]
+            }
+          }
+        },
+        {
+          "name": "Record Interview Feedback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interview_id\": \"INT-2025-001\",\n  \"interviewer_id\": \"EMP-1001\",\n  \"score\": 8.5,\n  \"feedback\": \"Strong technical skills, good communication\",\n  \"recommendation\": \"move_to_next_round\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/recruitment/interviews/feedback",
+              "host": ["{{base_url}}"],
+              "path": ["recruitment", "interviews", "feedback"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.hr-system.internal/v1",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "HR System - Payroll Processing",
+    "description": "API collection for payroll calculation, processing, and reporting",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Payroll Calculation",
+      "item": [
+        {
+          "name": "Calculate Payroll Period",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payroll_period\": \"2025-01\",\n  \"employees\": [\"EMP-2025-001\", \"EMP-2025-002\"],\n  \"include_bonus\": true,\n  \"process_type\": \"monthly\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/payroll/calculate",
+              "host": ["{{base_url}}"],
+              "path": ["payroll", "calculate"]
+            }
+          }
+        },
+        {
+          "name": "Get Payroll Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/payroll/PR-2025-01-001",
+              "host": ["{{base_url}}"],
+              "path": ["payroll", "PR-2025-01-001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payroll Processing",
+      "item": [
+        {
+          "name": "Process and Disburse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payroll_id\": \"PR-2025-01-001\",\n  \"approved_by\": \"EMP-1001\",\n  \"scheduled_date\": \"2025-02-01\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/payroll/process",
+              "host": ["{{base_url}}"],
+              "path": ["payroll", "process"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pay Stubs",
+      "item": [
+        {
+          "name": "Get Pay Stub",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/payroll/stub/EMP-2025-001/2025-01",
+              "host": ["{{base_url}}"],
+              "path": ["payroll", "stub", "EMP-2025-001", "2025-01"]
+            }
+          }
+        },
+        {
+          "name": "Generate W-2 Form",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/payroll/tax-forms/w2/EMP-2025-001/2025",
+              "host": ["{{base_url}}"],
+              "path": ["payroll", "tax-forms", "w2", "EMP-2025-001", "2025"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.hr-system.internal/v1",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

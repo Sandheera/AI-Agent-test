@@ -1,0 +1,822 @@
+# BMAD Fullstack HR Agent - Complete System Documentation
+
+## Executive Summary
+The BMAD Fullstack HR Agent is a comprehensive, enterprise-grade HR automation system built within the BMAD Framework. It automates the entire HR lifecycle including recruitment, employee data management, onboarding, leave management, and payroll integration, while maintaining strict compliance with labor laws and data privacy regulations.
+
+---
+
+## Agent Architecture
+
+### Agent Profile
+- **Name:** Alex
+- **Title:** Senior Fullstack HR Systems Specialist
+- **Icon:** 👤
+- **Framework:** BMAD (Behavior-Driven Agent Design)
+- **Status:** Active
+
+### Agent Capabilities
+1. Resume screening and candidate ranking (AI-powered)
+2. Employee onboarding workflow automation
+3. Leave management and balance tracking
+4. Payroll calculation and processing
+5. Compliance verification (GDPR, CCPA, labor laws)
+6. Employee data management with privacy controls
+7. API integration and testing via Postman
+8. Real-time reporting and analytics
+
+---
+
+## Technical Stack
+
+### Backend Technologies
+```
+Primary Languages:
+  - Node.js (JavaScript/TypeScript) - REST API, microservices
+  - Python 3.8+ - Data processing, ML algorithms, compliance rules
+  
+Frameworks:
+  - Express.js - REST API framework
+  - FastAPI - Async Python APIs
+  - Django - HR business logic
+  
+Databases:
+  - PostgreSQL - Employee records, payroll data
+  - MongoDB - Document storage (resumes, compliance logs)
+  - Redis - Session management, caching
+```
+
+### API Layer
+```
+REST API Endpoints:
+  Base URL: https://api.hr-system.internal/v1
+  Authentication: JWT Bearer tokens
+  Rate Limiting: 1000 req/hour (standard), 100 req/hour (batch)
+  Response Format: JSON with standardized error handling
+
+Core API Routes:
+  - /recruitment/* - Hiring and candidate management
+  - /employees/* - Employee records and data
+  - /leave/* - Leave requests and balances
+  - /payroll/* - Compensation processing
+  - /compliance/* - Compliance verification
+  - /onboarding/* - New hire setup
+```
+
+### Testing & Workflow Automation
+```
+Postman Collections:
+  - recruitment-workflow.postman_collection.json
+  - payroll-processing.postman_collection.json
+  - employee-data-mgmt.postman_collection.json
+  - leave-management.postman_collection.json
+  - compliance-verification.postman_collection.json
+
+Features:
+  - Pre-request scripts for data setup
+  - Post-response scripts for validation
+  - Environment variables for configuration
+  - Automated workflow testing
+  - Integration testing
+```
+
+### Security Infrastructure
+```
+Authentication:
+  - JWT-based authentication
+  - OAuth 2.0 integration support
+  - Multi-factor authentication capability
+  
+Encryption:
+  - TLS 1.3 for all data in transit
+  - AES-256 for data at rest
+  - PII field-level encryption
+  
+Access Control:
+  - Role-based access control (RBAC)
+  - Principle of least privilege
+  - Audit logging of all access
+  - Department-based data visibility
+```
+
+---
+
+## Knowledge Base Structure
+
+### 1. HR Logic Code (`/hr-logic`)
+Implementation of core HR business logic:
+
+#### resume-screening.js
+- Resume document parsing (PDF, DOCX, TXT)
+- Candidate information extraction (name, email, skills, experience)
+- Skill matching and proficiency assessment
+- Candidate scoring against job requirements
+- Hiring recommendation generation
+
+Key Functions:
+```javascript
+parseResume(resumeBuffer, format)     // Extract data from resume
+extractSkills(resumeText)              // Identify technical and soft skills
+scoreCandidate(candidate, jobReq)      // Calculate match score
+generateRecommendation(score)          // Hiring recommendation
+```
+
+#### candidate-ranking.py
+- Multi-factor candidate evaluation
+- Skill fit analysis
+- Experience relevance assessment
+- Cultural alignment evaluation
+- Growth potential prediction
+- Tier-based candidate ranking
+
+Key Functions:
+```python
+rank_candidates(candidates, job_profile)  # Rank all candidates
+evaluate_skills_fit()                      # Skills match scoring
+evaluate_experience_relevance()            # Experience evaluation
+assign_tiers()                             # Tier assignment logic
+generate_interview_questions()             # Interview prep
+```
+
+#### onboarding-workflow.js
+- New hire data collection
+- System access provisioning
+- Benefits enrollment automation
+- Compliance document management
+- Training assignment and tracking
+- 30/60/90 day check-in scheduling
+
+#### access-provisioning.py
+- Email account creation
+- System credentials setup
+- VPN and network access
+- Application access provisioning
+- Permissions and group management
+- Access audit trail
+
+#### leave-management.js
+- Leave balance calculation
+- Accrual processing
+- Leave request submission
+- Approval workflow automation
+- Calendar and conflict detection
+- Carryover policy enforcement
+
+#### compliance-rules.py
+- Labor law validation
+- Jurisdiction-specific rule checks
+- Tax calculation rules
+- Leave entitlement verification
+- Wage and hour compliance
+- Record retention policies
+
+#### payroll-engine.js
+- Payroll period processing
+- Leave deduction calculations
+- Shift and overtime processing
+- Bonus and incentive calculation
+- Net pay computation
+
+#### tax-calculator.py
+- Federal income tax withholding (Form W-4)
+- Social Security and Medicare (FICA) calculations
+- State income tax withholding
+- Estimated tax calculations
+- Tax filing and reporting
+
+#### employee-data-store.js
+- Employee master record management
+- Personal information storage
+- Employment status tracking
+- Document management integration
+- Change history and audit trail
+
+#### access-control.py
+- Role-based permission definitions
+- PII visibility controls
+- Department-based data access
+- Hierarchical permission inheritance
+- Fine-grained field-level access
+
+#### data-privacy-engine.py
+- GDPR compliance enforcement
+- CCPA data subject rights processing
+- Data retention policy enforcement
+- Data anonymization and pseudonymization
+- Right to be forgotten implementation
+- Data breach notification
+
+### 2. API Documentation (`/hr-api-docs`)
+
+#### api-reference.md
+Complete REST API documentation including:
+- Endpoint descriptions and parameters
+- Request/response examples
+- Authentication requirements
+- Error handling and codes
+- Rate limiting information
+- Webhook event definitions
+
+Endpoints Documented:
+```
+Job Management:
+  - POST /recruitment/jobs
+  - GET /recruitment/jobs/{job_id}
+  
+Resume Processing:
+  - POST /recruitment/resumes/upload
+  - POST /recruitment/candidates/score
+  
+Employee Data:
+  - POST /employees/create
+  - GET /employees/{employee_id}
+  - PUT /employees/{employee_id}
+  
+Leave Management:
+  - GET /leave/balance/{employee_id}
+  - POST /leave/request
+  - PUT /leave/request/{request_id}/approve
+  
+Payroll:
+  - POST /payroll/calculate
+  - POST /payroll/process
+  - GET /payroll/stub/{employee_id}/{period}
+  
+Compliance:
+  - POST /compliance/audit
+  - GET /compliance/audit/{audit_id}/results
+```
+
+### 3. Compliance Rules (`/hr-compliance`)
+
+#### labor-law-rules.md
+Jurisdiction-specific labor law requirements:
+- Federal minimum wage and overtime rules
+- State-specific leave entitlements
+- Child labor restrictions
+- Family and Medical Leave Act (FMLA)
+- Americans with Disabilities Act (ADA)
+- Equal Employment Opportunity (EEO)
+- Wage and hour regulations
+- Record retention requirements
+- Penalties and enforcement
+
+#### gdpr-requirements.md
+GDPR data protection requirements:
+- Employee rights (access, rectification, erasure, portability, objection)
+- Lawful basis for processing
+- Data retention periods
+- Data Protection Officer requirements
+- Data Protection Impact Assessment (DPIA)
+- Data breach notification procedures
+- International data transfers
+
+#### ccpa-requirements.md
+California Consumer Privacy Act compliance:
+- Consumer rights (access, deletion, opt-out)
+- Right to non-discrimination
+- Sale of personal information disclosure
+- Service provider contracts
+- Privacy policy requirements
+- Data breach notification
+- Opt-out mechanisms
+
+### 4. Postman Collections (`/postman-collections`)
+
+#### recruitment-workflow.postman_collection.json
+API testing for hiring processes:
+- Job creation and management
+- Resume upload and parsing
+- Candidate scoring
+- Candidate ranking and filtering
+- Interview scheduling
+- Interview feedback recording
+
+Request Examples:
+```
+Create Job: POST /recruitment/jobs
+Upload Resume: POST /recruitment/resumes/upload
+Score Candidate: POST /recruitment/candidates/score
+Get Ranked List: GET /recruitment/candidates/ranked
+Schedule Interview: POST /recruitment/interviews/schedule
+```
+
+#### payroll-processing.postman_collection.json
+Payroll calculation and disbursement:
+- Payroll period creation
+- Calculation and validation
+- Processing and disbursement
+- Pay stub generation
+- Tax form generation (W-2, 1099)
+- Year-end reporting
+
+#### employee-data-mgmt.postman_collection.json
+Employee record management:
+- Create employee records
+- Update employee information
+- Archive employee records
+- Search and filter employees
+- Bulk import/export
+- Document management
+
+#### leave-management.postman_collection.json
+Leave request and tracking:
+- Check leave balances
+- Submit leave requests
+- Approve/reject requests
+- View leave calendar
+- Modify leave policies
+- Generate leave reports
+
+#### compliance-verification.postman_collection.json
+Compliance checking and audits:
+- Run compliance audits
+- Get audit results
+- Review findings and recommendations
+- Track remediation status
+- Generate compliance reports
+
+### 5. Integration Specifications (`/hr-integrations`)
+
+#### Payroll System Integration
+- Third-party payroll provider APIs
+- Bank integration for direct deposit
+- Tax filing integrations (IRS, state revenue departments)
+- Employee compensation data export
+
+#### Benefits Provider Integration
+- Health insurance enrollment APIs
+- Benefits calculation integration
+- Plan administration
+- COBRA compliance
+
+#### Time Tracking Integration
+- Timesheet data import
+- Attendance synchronization
+- Overtime calculation
+- Shift management
+
+#### Learning Management Integration
+- Course assignment APIs
+- Training completion tracking
+- Certification management
+- Competency assessment
+
+#### Slack Notifications Integration
+- Hire confirmations
+- Leave approvals
+- Onboarding milestones
+- Compliance reminders
+- Payroll completion notifications
+
+### 6. Data Models (`/hr-data-models`)
+
+#### Employee Schema
+```json
+{
+  "employee_id": "string",
+  "personal": {
+    "first_name": "string",
+    "last_name": "string",
+    "email": "string",
+    "phone": "string",
+    "date_of_birth": "date",
+    "ssn": "string (encrypted)"
+  },
+  "employment": {
+    "job_title": "string",
+    "department": "string",
+    "manager_id": "string",
+    "start_date": "date",
+    "employment_type": "enum(Full-Time, Part-Time, Contract)",
+    "salary": "number",
+    "benefits": "object"
+  },
+  "status": "enum(active, on_leave, terminated, archived)",
+  "created_at": "timestamp",
+  "updated_at": "timestamp"
+}
+```
+
+#### Job Schema
+```json
+{
+  "job_id": "string",
+  "title": "string",
+  "description": "string",
+  "required_skills": ["string"],
+  "nice_to_have_skills": ["string"],
+  "years_experience_required": "number",
+  "salary_range": {
+    "min": "number",
+    "max": "number"
+  },
+  "department": "string",
+  "location": "string",
+  "remote_work_allowed": "boolean",
+  "status": "enum(open, closed, filled)",
+  "created_at": "timestamp"
+}
+```
+
+#### Candidate Schema
+```json
+{
+  "candidate_id": "string",
+  "name": "string",
+  "email": "string",
+  "phone": "string",
+  "resume_id": "string",
+  "skills": ["string"],
+  "experience": "number",
+  "education": "string",
+  "scoring": {
+    "total_score": "number",
+    "skills_match": "number",
+    "experience_match": "number",
+    "tier": "string"
+  },
+  "applied_for": ["job_id"],
+  "status": "enum(new, screening, interview, offer, rejected, hired)",
+  "created_at": "timestamp"
+}
+```
+
+#### Leave Schema
+```json
+{
+  "leave_request_id": "string",
+  "employee_id": "string",
+  "leave_type": "enum(vacation, sick, personal, unpaid, emergency)",
+  "start_date": "date",
+  "end_date": "date",
+  "duration_days": "number",
+  "reason": "string",
+  "status": "enum(pending, approved, rejected, cancelled)",
+  "approved_by": "string",
+  "created_at": "timestamp",
+  "updated_at": "timestamp"
+}
+```
+
+#### Payroll Schema
+```json
+{
+  "payroll_id": "string",
+  "period": "string (YYYY-MM)",
+  "employees": ["employee_id"],
+  "calculations": {
+    "gross_pay": "number",
+    "federal_tax": "number",
+    "fica_tax": "number",
+    "state_tax": "number",
+    "deductions": "number",
+    "net_pay": "number"
+  },
+  "status": "enum(draft, calculated, approved, processed)",
+  "pay_date": "date",
+  "processed_date": "timestamp"
+}
+```
+
+---
+
+## Workflow Processes
+
+### 1. Resume Screening & Candidate Ranking Workflow
+```
+1. Job Description Input
+   ├─ Accept job requirements
+   ├─ Extract key skills and competencies
+   └─ Set evaluation criteria
+
+2. Resume Processing
+   ├─ Parse resume documents
+   ├─ Extract candidate information
+   └─ Normalize data
+
+3. AI-Powered Screening
+   ├─ Match skills against requirements
+   ├─ Evaluate experience
+   ├─ Assess education level
+   └─ Calculate compatibility score
+
+4. Ranking & Tiering
+   ├─ Sort candidates by score
+   ├─ Assign to tiers (1-4)
+   ├─ Identify top candidates
+   └─ Flag skill gaps
+
+5. Output & Actions
+   ├─ Generate screening report
+   ├─ Create ranking matrix
+   ├─ Schedule top interviews
+   └─ Notify hiring managers
+```
+
+### 2. Employee Onboarding Workflow
+```
+1. Pre-Arrival Setup (Week -1)
+   ├─ Create employee record
+   ├─ Collect personal information
+   ├─ Set up email and accounts
+   └─ Prepare workspace
+
+2. First Day (Day 1)
+   ├─ Complete I-9 verification
+   ├─ Provide IT setup
+   ├─ Review company policies
+   ├─ Meet manager and team
+   └─ IT security training
+
+3. First Month (Days 2-30)
+   ├─ System access training
+   ├─ Department orientation
+   ├─ Product/service training
+   ├─ Compliance training
+   └─ Performance expectations
+
+4. 30-Day Check-in
+   ├─ Manager feedback
+   ├─ Skills assessment
+   ├─ Cultural fit evaluation
+   └─ Adjustment support
+
+5. 60-Day Check-in
+   ├─ Progress review
+   ├─ Training completion check
+   ├─ Continued development
+   └─ Feedback loop
+
+6. 90-Day Check-in
+   ├─ Formal performance review
+   ├─ Probation period completion
+   ├─ Role confirmation
+   └─ Development plan setup
+```
+
+### 3. Leave Management Workflow
+```
+1. Leave Balance Management
+   ├─ Calculate annual allocation
+   ├─ Track accrual
+   ├─ Manage carryover
+   └─ Apply policy rules
+
+2. Leave Request
+   ├─ Submit request form
+   ├─ Select leave type
+   ├─ Provide reason (if required)
+   ├─ Check conflicts
+   └─ Send for approval
+
+3. Approval Process
+   ├─ Manager review
+   ├─ HR compliance check
+   ├─ Backup coverage verification
+   ├─ Approve or reject
+   └─ Notify employee
+
+4. Leave Tracking
+   ├─ Update calendar
+   ├─ Deduct from balance
+   ├─ Notify payroll
+   └─ Create records
+
+5. Payroll Integration
+   ├─ Deduct from pay
+   ├─ Calculate carryover
+   ├─ Manage year-end settlements
+   └─ Generate reports
+```
+
+### 4. Payroll Processing Workflow
+```
+1. Data Collection
+   ├─ Gather timekeeping data
+   ├─ Review leave records
+   ├─ Collect bonus/commission data
+   └─ Note any adjustments
+
+2. Calculation Phase
+   ├─ Calculate gross pay
+   ├─ Apply leave deductions
+   ├─ Calculate overtime
+   ├─ Compute shifts/differentials
+   └─ Add bonuses/commissions
+
+3. Tax & Deduction Processing
+   ├─ Calculate federal income tax
+   ├─ Calculate FICA (SS + Medicare)
+   ├─ Calculate state income tax
+   ├─ Process benefit deductions
+   ├─ Apply garnishments
+   └─ Compute net pay
+
+4. Validation & Audit
+   ├─ Verify calculations
+   ├─ Check compliance
+   ├─ Review exceptions
+   ├─ Audit by HR/Finance
+   └─ Approve for processing
+
+5. Disbursement
+   ├─ Process direct deposits
+   ├─ Generate pay stubs
+   ├─ Create tax records
+   ├─ Archive documents
+   └─ Notify employees
+
+6. Reporting
+   ├─ Generate payroll reports
+   ├─ Prepare tax filings (941, W-2, 1099)
+   ├─ Create audit trail
+   └─ Year-end tax forms
+```
+
+### 5. Compliance Verification Workflow
+```
+1. Compliance Audit
+   ├─ Review data storage
+   ├─ Verify encryption
+   ├─ Audit access logs
+   ├─ Check retention policies
+   └─ Assess controls
+
+2. Labor Law Compliance
+   ├─ Verify minimum wage
+   ├─ Check overtime rules
+   ├─ Validate leave entitlements
+   ├─ Review work hour limits
+   └─ Confirm union compliance
+
+3. Data Privacy Assessment
+   ├─ Verify PII protection
+   ├─ Check consent management
+   ├─ Assess vendor compliance
+   ├─ Review data transfers
+   └─ Validate retention
+
+4. Risk Assessment
+   ├─ Identify gaps
+   ├─ Score severity
+   ├─ Prioritize issues
+   ├─ Estimate remediation
+   └─ Plan mitigation
+
+5. Remediation
+   ├─ Implement fixes
+   ├─ Document changes
+   ├─ Verify effectiveness
+   ├─ Update policies
+   └─ Schedule re-audit
+```
+
+---
+
+## API Usage Examples
+
+### Resume Screening Example
+```bash
+# 1. Upload Resume
+curl -X POST https://api.hr-system.internal/v1/recruitment/resumes/upload \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -F "file=@resume.pdf" \
+  -F "job_id=JOB-2025-001"
+
+# 2. Score Candidate
+curl -X POST https://api.hr-system.internal/v1/recruitment/candidates/score \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "resume_id": "RES-2025-001",
+    "job_id": "JOB-2025-001"
+  }'
+
+# 3. Get Ranked Candidates
+curl -X GET https://api.hr-system.internal/v1/recruitment/candidates/ranked?job_id=JOB-2025-001&limit=10 \
+  -H "Authorization: Bearer $JWT_TOKEN"
+```
+
+### Payroll Processing Example
+```bash
+# 1. Calculate Payroll
+curl -X POST https://api.hr-system.internal/v1/payroll/calculate \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "payroll_period": "2025-01",
+    "employees": ["EMP-2025-001", "EMP-2025-002"],
+    "include_bonus": true
+  }'
+
+# 2. Process Payroll
+curl -X POST https://api.hr-system.internal/v1/payroll/process \
+  -H "Authorization: Bearer $JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "payroll_id": "PR-2025-01-001",
+    "approved_by": "EMP-1001"
+  }'
+
+# 3. Get Pay Stub
+curl -X GET https://api.hr-system.internal/v1/payroll/stub/EMP-2025-001/2025-01 \
+  -H "Authorization: Bearer $JWT_TOKEN"
+```
+
+---
+
+## Compliance Features
+
+### Data Privacy & Security
+- AES-256 encryption for sensitive data
+- Field-level access controls for PII
+- GDPR data subject rights implementation
+- CCPA opt-out mechanisms
+- Automated data retention enforcement
+- Breach notification procedures
+- Audit logging of all access
+
+### Labor Law Compliance
+- Federal minimum wage validation
+- Overtime calculation enforcement (FLSA)
+- Jurisdiction-specific leave entitlements
+- FMLA compliance tracking
+- ADA accommodation documentation
+- Equal pay monitoring
+- Child labor restrictions (where applicable)
+
+### Payroll Compliance
+- Accurate tax withholding (federal, state, local)
+- FICA calculation (Social Security + Medicare)
+- Garnishment processing
+- Form 941-X quarterly reconciliation
+- W-2 and 1099 generation
+- Year-end tax filing
+- Record retention (7 years minimum)
+
+---
+
+## Deployment & Configuration
+
+### Environment Setup
+```bash
+# Install dependencies
+npm install              # Node.js dependencies
+pip install -r requirements.txt  # Python dependencies
+
+# Configuration
+export HR_API_URL=https://api.hr-system.internal/v1
+export DB_HOST=postgres.internal
+export DB_NAME=hr_system
+export JWT_SECRET=<secure_secret>
+export ENCRYPTION_KEY=<secure_key>
+
+# Start services
+npm start               # Start Node.js services
+python -m uvicorn app:app --host 0.0.0.0 --port 8000  # Python APIs
+```
+
+### Database Setup
+```sql
+-- Create required tables
+CREATE TABLE employees (...)
+CREATE TABLE jobs (...)
+CREATE TABLE candidates (...)
+CREATE TABLE leave_requests (...)
+CREATE TABLE payroll (...)
+CREATE TABLE audit_logs (...)
+
+-- Create indexes for performance
+CREATE INDEX idx_employee_email ON employees(email)
+CREATE INDEX idx_candidate_job ON candidates(job_id)
+```
+
+---
+
+## Support & Maintenance
+
+### Troubleshooting Guide
+- Resume parsing issues
+- API authentication errors
+- Payroll calculation discrepancies
+- Compliance audit failures
+- Data access permission errors
+
+### Regular Maintenance Tasks
+- Update labor law rules quarterly
+- Review and update tax withholding tables annually
+- Audit data access logs monthly
+- Test disaster recovery procedures semi-annually
+- Review and update security certificates
+- Archive old records per retention policies
+
+### Support Contacts
+- HR Systems Team: hr-systems@company.com
+- Compliance Officer: compliance@company.com
+- Data Privacy: privacy@company.com
+- Technical Support: support@company.com
+
+---
+
+## Conclusion
+The BMAD Fullstack HR Agent provides a comprehensive, scalable, and compliant HR management system that automates critical business processes while maintaining strict data privacy and regulatory compliance standards.
